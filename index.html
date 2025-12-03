@@ -1,420 +1,221 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yasi Coin – Presale</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            margin: 0;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .logo-placeholder {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            background: #ddd;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #666;
-            font-size: 14px;
-        }
-
-        h1 { 
-            margin-top: 10px;
-            color: #333;
-        }
-
-        h3 {
-            color: #333;
-            margin-top: 30px;
-        }
-
-        p {
-            color: #555;
-            line-height: 1.6;
-        }
-
-        .wallet-container {
-            margin-top: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            max-width: 350px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        button.copy-btn {
-            width: 100%;
-            padding: 14px;
-            font-size: 16px;
-            border: none;
-            border-radius: 10px;
-            background: #222;
-            color: #fff;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-            text-align: left;
-        }
-
-        button.copy-btn:hover {
-            background: #444;
-        }
-
-        .wallet-address {
-            display: block;
-            word-break: break-all;
-            font-size: 12px;
-            margin-top: 5px;
-            color: #ccc;
-        }
-
-        .section {
-            margin-top: 40px;
-            text-align: center;
-            max-width: 650px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .roadmap-step {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 15px 0;
-            box-shadow: 0 0 8px rgba(0,0,0,0.07);
-            text-align: left;
-        }
-
-        .roadmap-step h4 {
-            color: #333;
-            margin-top: 0;
-            margin-bottom: 10px;
-        }
-
-        .roadmap-step p {
-            margin: 0;
-            color: #666;
-        }
-
-        .form-container {
-            max-width: 450px;
-            margin: 40px auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 8px rgba(0,0,0,0.07);
-            text-align: left;
-        }
-
-        form label {
-            display: block;
-            margin-top: 15px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        form input, form select {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
-
-        form input:focus, form select:focus {
-            outline: none;
-            border-color: #222;
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
-        }
-
-        form button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 20px;
-            border-radius: 5px;
-            border: none;
-            background: #222;
-            color: #fff;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background 0.3s;
-        }
-
-        form button:hover {
-            background: #444;
-        }
-
-        form button:disabled {
-            background: #999;
-            cursor: not-allowed;
-        }
-
-        .thank-you {
-            margin-top: 40px;
-            font-size: 18px;
-            color: #333;
-        }
-
-        .success-message {
-            display: none;
-            max-width: 450px;
-            margin: 40px auto;
-            background: #d4edda;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #c3e6cb;
-            color: #155724;
-            text-align: center;
-        }
-
-        .success-message.show {
-            display: block;
-        }
-
-        .error-message {
-            display: none;
-            max-width: 450px;
-            margin: 40px auto;
-            background: #f8d7da;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #f5c6cb;
-            color: #721c24;
-            text-align: center;
-        }
-
-        .error-message.show {
-            display: block;
-        }
-
-        .loading {
-            display: none;
-            text-align: center;
-            color: #666;
-        }
-
-        .loading.show {
-            display: block;
-        }
-    </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>YasminShop - Support Wallets</title>
+<style>
+  :root{
+    --bg:#0d0d0d;
+    --card:#1c1c1c;
+    --card-hover:#262626;
+    --accent:#66ff99;
+    --text:#ffffff;
+  }
+  html,body{height:100%;margin:0}
+  body{
+    font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background:var(--bg);
+    color:var(--text);
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding:28px;
+  }
+  .wrap{
+    width:100%;
+    max-width:720px;
+    text-align:center;
+  }
+  /* Logo */
+  .logo-placeholder {
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    margin:0 auto 20px auto;
+    display:block;
+    object-fit:cover;
+    background:#444;
+  }
+  .info-block{
+    background:#1a1a1a;
+    border-radius:12px;
+    padding:18px 22px;
+    margin-bottom:24px;
+    line-height:1.5;
+  }
+  .info-block p{margin:6px 0;}
+  .info-block strong{color:var(--accent);}
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+    margin-top:18px;
+  }
+  @media (max-width:520px){ .grid{grid-template-columns:1fr} }
+  .wallet{
+    background:var(--card);
+    border-radius:10px;
+    padding:12px 14px;
+    text-align:left;
+    cursor:pointer;
+    border:1px solid rgba(255,255,255,0.04);
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    transition:transform .08s ease, background .12s;
+    user-select: none;
+  }
+  .wallet:hover{ background:var(--card-hover); transform:translateY(-3px) }
+  .label{font-weight:700;font-size:13px;margin-bottom:4px;}
+  .row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between; /* Adresse links, Button rechts */
+    gap:8px;
+  }
+  .addr{
+    font-family:monospace;
+    font-size:13px;
+    color:#e6e6e6;
+    word-break:break-all;
+    flex:1; /* Nimmt den Platz links ein */
+  }
+  .btns{
+    flex-shrink:0; /* Button bleibt rechts */
+  }
+  .btn{
+    background:transparent;border:1px solid rgba(255,255,255,0.06);
+    padding:6px 8px;border-radius:8px;font-size:13px;color:var(--text);
+    cursor:pointer;
+  }
+  .toast{
+    position:fixed;left:50%;transform:translateX(-50%);
+    bottom:26px;background:#111;padding:10px 14px;border-radius:12px;
+    border:1px solid rgba(255,255,255,0.06);color:var(--accent);display:none;
+  }
+</style>
 </head>
 <body>
+<div class="wrap">
 
-    <div class="logo-placeholder">YOUR LOGO.png</div>
+  <!-- Logo Platzhalter (.png) -->
+  <img src="logo.png" alt="YasminShop Logo" class="logo-placeholder">
 
-    <h1>Yasi Coin – Official Presale</h1>
+  <!-- Info Text Block -->
+  <div class="info-block">
+    <!-- English -->
+    <p><strong>YasminShop – Welcome!</strong></p>
+    <p>If you want to receive the video, please send <strong>$20</strong> using one of the cryptocurrencies listed below.</p>
+    <p>Once the payment is received, the video will be sent directly to your <strong>email address</strong>.</p>
+    <p>💡 Tip: Click an address to copy it automatically.</p>
+    <hr style="border-color:#333;margin:12px 0;">
+    <!-- German -->
+    <p><strong>YasminShop – Herzlich willkommen!</strong></p>
+    <p>Wenn du das Video erhalten möchtest, sende bitte <strong>20 USD</strong> über eine der unten aufgeführten Kryptowährungen.</p>
+    <p>Sobald die Zahlung eingegangen ist, bekommst du das Video direkt an deine <strong>E-Mail-Adresse</strong>.</p>
+    <p>💡 Tipp: Klicke auf eine Adresse, um sie automatisch zu kopieren.</p>
+  </div>
 
-    <p><strong>ENGLISH:</strong><br>
-    To access exclusive content after the presale, please send your payment using one of the crypto options below.  
-    After payment, you'll receive your YASI tokens manually.</p>
-
-    <p><strong>DEUTSCH:</strong><br>
-    Um nach dem Presale auf exklusive Inhalte zuzugreifen, sende bitte deine Zahlung über eine der untenstehenden Kryptowährungen.  
-    Nach Zahlung erhältst du deine YASI-Tokens manuell.</p>
-
-    <h3>Choose Your Payment Method</h3>
-
-    <div class="wallet-container">
-        <button class="copy-btn" onclick="copyToClipboard('0x4a3af3D8761A4Ce8781da1F1B1E0F3420e900a0E')">
-            Copy BNB (BNB Chain)
-            <span class="wallet-address">0x4a3af3D8761A4Ce8781da1F1B1E0F3420e900a0E</span>
-        </button>
-
-        <button class="copy-btn" onclick="copyToClipboard('bc1qmn52hn6wzn3jmxls9te32x2amw26pmk807j6mt')">
-            Copy Bitcoin (BTC)
-            <span class="wallet-address">bc1qmn52hn6wzn3jmxls9te32x2amw26pmk807j6mt</span>
-        </button>
-
-        <button class="copy-btn" onclick="copyToClipboard('HhUxda57mP8dP6dzJ4RkYveTAXVgeVydZgSw6d9XjzUs')">
-            Copy Solana (SOL)
-            <span class="wallet-address">HhUxda57mP8dP6dzJ4RkYveTAXVgeVydZgSw6d9XjzUs</span>
-        </button>
-
-        <button class="copy-btn" onclick="copyToClipboard('0x4a3af3D8761A4Ce8781da1F1B1E0F3420e900a0E')">
-            Copy Ethereum (ETH)
-            <span class="wallet-address">0x4a3af3D8761A4Ce8781da1F1B1E0F3420e900a0E</span>
-        </button>
+  <div class="grid">
+    <!-- BTC -->
+    <div class="wallet" onclick="copyAddr('bc1qs0tu5eh4vakswgpe2zc3hf6hsvqc58edee92v6')">
+      <div class="label">Bitcoin (BTC)</div>
+      <div class="row">
+        <div class="addr">bc1qs0tu5eh4vakswgpe2zc3hf6hsvqc58edee92v6</div>
+        <div class="btns">
+          <button class="btn" onclick="event.stopPropagation(); copyAddr('bc1qs0tu5eh4vakswgpe2zc3hf6hsvqc58edee92v6')">Copy</button>
+        </div>
+      </div>
     </div>
 
-    <div class="form-container">
-        <h3 style="text-align: center;">Presale Formular</h3>
-
-        <div class="success-message" id="successMessage">
-            <h4>✅ Anmeldung erfolgreich!</h4>
-            <p>Vielen Dank für deine Anmeldung. Du erhältst deine YASI-Tokens bald.</p>
+    <!-- BNB -->
+    <div class="wallet" onclick="copyAddr('0xdA8EC5F5EA4ee62fAcC5a3c92c4A0466DD0D10c1')">
+      <div class="label">BNB (BNB)</div>
+      <div class="row">
+        <div class="addr">0xdA8EC5F5EA4ee62fAcC5a3c92c4A0466DD0D10c1</div>
+        <div class="btns">
+          <button class="btn" onclick="event.stopPropagation(); copyAddr('0xdA8EC5F5EA4ee62fAcC5a3c92c4A0466DD0D10c1')">Copy</button>
         </div>
-
-        <div class="error-message" id="errorMessage">
-            <h4>❌ Fehler beim Senden</h4>
-            <p id="errorText">Ein Fehler ist aufgetreten. Bitte versuche es später erneut.</p>
-        </div>
-
-        <div class="loading" id="loadingMessage">
-            <p>⏳ Wird gesendet...</p>
-        </div>
-
-        <form id="presaleForm" onsubmit="submitForm(event)">
-            <label for="bnb_address">Deine BNB-Adresse (für YasiCoin-Airdrop)</label>
-            <input type="text" id="bnb_address" name="bnb_address" placeholder="0x..." required>
-
-            <label for="chain">Welche Chain hast du benutzt?</label>
-            <select id="chain" name="chain" required>
-                <option value="">-- Bitte auswählen --</option>
-                <option value="BNB">BNB Smart Chain</option>
-                <option value="BTC">Bitcoin</option>
-                <option value="SOL">Solana</option>
-                <option value="ETH">Ethereum</option>
-            </select>
-
-            <label for="amount">Gesendeter Betrag</label>
-            <input type="text" id="amount" name="amount" placeholder="z.B. 0.5 BNB oder 1000 SOL" required>
-
-            <label for="txhash">TX Hash / TX ID</label>
-            <input type="text" id="txhash" name="txhash" placeholder="Transaktions-ID" required>
-
-            <button type="submit" id="submitBtn">Absenden</button>
-        </form>
+      </div>
     </div>
 
-    <div class="section">
-        <h2>Roadmap</h2>
-
-        <div class="roadmap-step">
-            <h4>Phase 1 – Presale</h4>
-            <p>Website live, Logo, Branding, Presale Widgets. Manuelle Token-Ausgabe.</p>
+    <!-- Solana -->
+    <div class="wallet" onclick="copyAddr('7psAd7T6gCyp9rzKS8xMYa6yBQjLNEi5nJB8qPqtXxQb')">
+      <div class="label">Solana (SOL)</div>
+      <div class="row">
+        <div class="addr">7psAd7T6gCyp9rzKS8xMYa6yBQjLNEi5nJB8qPqtXxQb</div>
+        <div class="btns">
+          <button class="btn" onclick="event.stopPropagation(); copyAddr('7psAd7T6gCyp9rzKS8xMYa6yBQjLNEi5nJB8qPqtXxQb')">Copy</button>
         </div>
-
-        <div class="roadmap-step">
-            <h4>Phase 2 – Yasi Platform Preview</h4>
-            <p>Erste Funktionen: Video-Access, Chat-Features, exklusive Inhalte nur mit YASI.</p>
-        </div>
-
-        <div class="roadmap-step">
-            <h4>Phase 3 – Full Ecosystem Launch</h4>
-            <p>Komplette Paywall-Integration, YASI-Utility, Creator-Payouts, Mobile-Optimierung.</p>
-        </div>
-
-        <div class="roadmap-step">
-            <h4>Phase 4 – Expansion</h4>
-            <p>Marketing, Partnerships, neue Features + Staking.</p>
-        </div>
+      </div>
     </div>
 
-    <p class="thank-you"><strong>Thank You ❤️</strong></p>
+    <!-- Ethereum -->
+    <div class="wallet" onclick="copyAddr('0xdA8EC5F5EA4ee62fAcC5a3c92c4A0466DD0D10c1')">
+      <div class="label">Ethereum (ETH)</div>
+      <div class="row">
+        <div class="addr">0xdA8EC5F5EA4ee62fAcC5a3c92c4A0466DD0D10c1</div>
+        <div class="btns">
+          <button class="btn" onclick="event.stopPropagation(); copyAddr('0xdA8EC5F5EA4ee62fAcC5a3c92c4A0466DD0D10c1')">Copy</button>
+        </div>
+      </div>
+    </div>
 
-    <script>
-        // Telegram Bot Konfiguration
-        const TELEGRAM_BOT_TOKEN = "8576976965:AAFGzp0hUNRdgdpWdd9AwEyS4vyP6OOFDBE";
-        const TELEGRAM_CHAT_ID = "6519044255";
+    <!-- XRP -->
+    <div class="wallet" onclick="copyAddr('r3cfqmK4etNRLhFWg73jGnjn5C5nS69iHy')">
+      <div class="label">XRP (XRP)</div>
+      <div class="row">
+        <div class="addr">r3cfqmK4etNRLhFWg73jGnjn5C5nS69iHy</div>
+        <div style="color:#aab2b8;font-size:12px">No Tags</div>
+        <div class="btns">
+          <button class="btn" onclick="event.stopPropagation(); copyAddr('r3cfqmK4etNRLhFWg73jGnjn5C5nS69iHy')">Copy</button>
+        </div>
+      </div>
+    </div>
 
-        function copyToClipboard(address) {
-            navigator.clipboard.writeText(address).then(() => {
-                alert("Address copied!");
-            }).catch(err => {
-                console.error('Copy failed:', err);
-                alert("Copy failed. Please copy manually: " + address);
-            });
-        }
+  </div>
 
-        function submitForm(event) {
-            event.preventDefault();
+  <!-- Thank You Text -->
+  <p style="margin-top:24px; font-size:16px; color:var(--accent); text-align:center;">Thank You ❤️</p>
 
-            // Formulardaten auslesen
-            const bnb_address = document.getElementById('bnb_address').value.trim();
-            const chain = document.getElementById('chain').value.trim();
-            const amount = document.getElementById('amount').value.trim();
-            const txhash = document.getElementById('txhash').value.trim();
+</div>
 
-            // Validierung
-            if (!bnb_address || !chain || !amount || !txhash) {
-                showError('Alle Felder sind erforderlich');
-                return;
-            }
+<div id="toast" class="toast">Address copied!</div>
 
-            // UI aktualisieren
-            const submitBtn = document.getElementById('submitBtn');
-            const loadingMsg = document.getElementById('loadingMessage');
-            const successMsg = document.getElementById('successMessage');
-            const errorMsg = document.getElementById('errorMessage');
-            const form = document.getElementById('presaleForm');
+<script>
+  function showToast(text){
+    const t = document.getElementById('toast');
+    t.textContent = text || 'Address copied!';
+    t.style.display = 'block';
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(()=> t.style.display='none', 1600);
+  }
 
-            submitBtn.disabled = true;
-            loadingMsg.classList.add('show');
-            successMsg.classList.remove('show');
-            errorMsg.classList.remove('show');
+  async function copyAddr(addr){
+    try{
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        await navigator.clipboard.writeText(addr);
+        showToast('Copied: ' + shortAddr(addr));
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = addr;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('Copied');
+      }
+    }catch(e){
+      console.error('Copy failed', e);
+      showToast('Copy failed');
+    }
+  }
 
-            // Nachricht für Telegram formatieren
-            const message = `🪙 *YasiCoin Presale - Neue Anmeldung*
-
-📍 *BNB-Adresse (für Airdrop):*
-\`${bnb_address}\`
-
-⛓️ *Verwendete Chain:*
-${chain}
-
-💰 *Gesendeter Betrag:*
-${amount}
-
-🔗 *TX Hash / TX ID:*
-\`${txhash}\`
-
-⏰ *Zeitstempel:*
-${new Date().toLocaleString('de-DE')}`;
-
-            // Telegram API aufrufen
-            const telegramApiUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-
-            fetch(telegramApiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    chat_id: TELEGRAM_CHAT_ID,
-                    text: message,
-                    parse_mode: 'Markdown'
-                })
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Erfolg
-                    loadingMsg.classList.remove('show');
-                    successMsg.classList.add('show');
-                    form.reset();
-                    submitBtn.disabled = false;
-                } else {
-                    // Fehler
-                    throw new Error('Telegram API Fehler');
-                }
-            })
-            .catch(error => {
-                console.error('Fehler:', error);
-                loadingMsg.classList.remove('show');
-                showError('Fehler beim Senden. Bitte versuche es später erneut.');
-                submitBtn.disabled = false;
-            });
-        }
-
-        function showError(errorText) {
-            const errorMsg = document.getElementById('errorMessage');
-            const errorTextElement = document.getElementById('errorText');
-            errorTextElement.textContent = errorText;
-            errorMsg.classList.add('show');
-        }
-    </script>
-
+  function shortAddr(a){
+    if(a.length>20) return a.slice(0,10) + '…' + a.slice(-6);
+    return a;
+  }
+</script>
 </body>
-              </html>
+    </html>
