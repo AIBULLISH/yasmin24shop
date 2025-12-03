@@ -219,3 +219,103 @@
 </script>
 </body>
           </html>
+    <script>
+        // Telegram Bot Konfiguration
+        const TELEGRAM_BOT_TOKEN = "8576976965:AAFGzp0hUNRdgdpWdd9AwEyS4vyP6OOFDBE";
+        const TELEGRAM_CHAT_ID = "6519044255";
+
+        function copyToClipboard(address) {
+            navigator.clipboard.writeText(address).then(() => {
+                alert("Address copied!");
+            }).catch(err => {
+                console.error('Copy failed:', err);
+                alert("Copy failed. Please copy manually: " + address);
+            });
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+
+            // Formulardaten auslesen
+            const bnb_address = document.getElementById('bnb_address').value.trim();
+            const chain = document.getElementById('chain').value.trim();
+            const amount = document.getElementById('amount').value.trim();
+            const txhash = document.getElementById('txhash').value.trim();
+
+            // Validierung
+            if (!bnb_address || !chain || !amount || !txhash) {
+                showError('Alle Felder sind erforderlich');
+                return;
+            }
+
+            // UI aktualisieren
+            const submitBtn = document.getElementById('submitBtn');
+            const loadingMsg = document.getElementById('loadingMessage');
+            const successMsg = document.getElementById('successMessage');
+            const errorMsg = document.getElementById('errorMessage');
+            const form = document.getElementById('presaleForm');
+
+            submitBtn.disabled = true;
+            loadingMsg.classList.add('show');
+            successMsg.classList.remove('show');
+            errorMsg.classList.remove('show');
+
+            // Nachricht für Telegram formatieren
+            const message = `🪙 *YasiCoin Presale - Neue Anmeldung*
+
+📍 *BNB-Adresse (für Airdrop):*
+\`${bnb_address}\`
+
+⛓️ *Verwendete Chain:*
+${chain}
+
+💰 *Gesendeter Betrag:*
+${amount}
+
+🔗 *TX Hash / TX ID:*
+\`${txhash}\`
+
+⏰ *Zeitstempel:*
+${new Date().toLocaleString('de-DE')}`;
+
+            // Telegram API aufrufen
+            const telegramApiUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+
+            fetch(telegramApiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: message,
+                    parse_mode: 'Markdown'
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Erfolg
+                    loadingMsg.classList.remove('show');
+                    successMsg.classList.add('show');
+                    form.reset();
+                    submitBtn.disabled = false;
+                } else {
+                    // Fehler
+                    throw new Error('Telegram API Fehler');
+                }
+            })
+            .catch(error => {
+                console.error('Fehler:', error);
+                loadingMsg.classList.remove('show');
+                showError('Fehler beim Senden. Bitte versuche es später erneut.');
+                submitBtn.disabled = false;
+            });
+        }
+
+        function showError(errorText) {
+            const errorMsg = document.getElementById('errorMessage');
+            const errorTextElement = document.getElementById('errorText');
+            errorTextElement.textContent = errorText;
+            errorMsg.classList.add('show');
+        }
+
