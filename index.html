@@ -71,7 +71,7 @@
   .row{
     display:flex;
     align-items:center;
-    justify-content:space-between; /* Adresse links, Button rechts */
+    justify-content:space-between;
     gap:8px;
   }
   .addr{
@@ -79,10 +79,10 @@
     font-size:13px;
     color:#e6e6e6;
     word-break:break-all;
-    flex:1; /* Nimmt den Platz links ein */
+    flex:1;
   }
   .btns{
-    flex-shrink:0; /* Button bleibt rechts */
+    flex-shrink:0;
   }
   .btn{
     background:transparent;border:1px solid rgba(255,255,255,0.06);
@@ -93,6 +93,116 @@
     position:fixed;left:50%;transform:translateX(-50%);
     bottom:26px;background:#111;padding:10px 14px;border-radius:12px;
     border:1px solid rgba(255,255,255,0.06);color:var(--accent);display:none;
+  }
+
+  /* Formular Styles */
+  .form-container {
+    background:#1a1a1a;
+    border-radius:12px;
+    padding:24px;
+    margin-top:28px;
+    border:1px solid rgba(255,255,255,0.04);
+  }
+
+  .form-container h3 {
+    color:var(--accent);
+    margin-top:0;
+    margin-bottom:20px;
+    font-size:18px;
+  }
+
+  form label {
+    display:block;
+    margin-top:14px;
+    font-weight:600;
+    color:var(--text);
+    text-align:left;
+    font-size:14px;
+  }
+
+  form input {
+    width:100%;
+    padding:10px 12px;
+    margin:6px 0 0 0;
+    border-radius:8px;
+    border:1px solid rgba(255,255,255,0.06);
+    box-sizing:border-box;
+    font-size:14px;
+    background:#262626;
+    color:var(--text);
+    transition:border-color .2s;
+  }
+
+  form input:focus {
+    outline:none;
+    border-color:var(--accent);
+    box-shadow:0 0 8px rgba(102,255,153,0.2);
+  }
+
+  form button {
+    width:100%;
+    padding:10px;
+    margin-top:20px;
+    border-radius:8px;
+    border:none;
+    background:var(--accent);
+    color:#000;
+    font-weight:700;
+    cursor:pointer;
+    font-size:14px;
+    transition:opacity .2s;
+  }
+
+  form button:hover {
+    opacity:0.9;
+  }
+
+  form button:disabled {
+    opacity:0.5;
+    cursor:not-allowed;
+  }
+
+  .success-message {
+    display:none;
+    background:#1a4d2e;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid var(--accent);
+    color:var(--accent);
+    text-align:center;
+    margin-bottom:14px;
+    font-size:14px;
+  }
+
+  .success-message.show {
+    display:block;
+  }
+
+  .error-message {
+    display:none;
+    background:#4d1a1a;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #ff6666;
+    color:#ff6666;
+    text-align:center;
+    margin-bottom:14px;
+    font-size:14px;
+  }
+
+  .error-message.show {
+    display:block;
+  }
+
+  .loading {
+    display:none;
+    text-align:center;
+    color:var(--accent);
+    margin-bottom:14px;
+  }
+
+  .loading.show {
+    display:block;
   }
 </style>
 </head>
@@ -112,7 +222,7 @@
     <hr style="border-color:#333;margin:12px 0;">
     <!-- German -->
     <p><strong>YasminShop – Herzlich willkommen!</strong></p>
-    <p>Wenn du das Video erhalten möchtest, sende bitte <strong>20 USD</strong> über eine der unten aufgeführten Kryptowährungen.</p>
+    <p>Wenn du das Video erhalten möchtest, sende bitte <strong>20 USD</strong> über eine der unten aufgeführten Kryptowährungen.</p>
     <p>Sobald die Zahlung eingegangen ist, bekommst du das Video direkt an deine <strong>E-Mail-Adresse</strong>.</p>
     <p>💡 Tipp: Klicke auf eine Adresse, um sie automatisch zu kopieren.</p>
   </div>
@@ -176,6 +286,35 @@
 
   </div>
 
+  <!-- Telegram Formular -->
+  <div class="form-container">
+    <h3>📧 Deine Daten</h3>
+
+    <div class="success-message" id="successMessage">
+      <h4>✅ Erfolgreich gesendet!</h4>
+      <p>Vielen Dank. Wir haben deine Daten erhalten.</p>
+    </div>
+
+    <div class="error-message" id="errorMessage">
+      <h4>❌ Fehler beim Senden</h4>
+      <p id="errorText">Ein Fehler ist aufgetreten. Bitte versuche es später erneut.</p>
+    </div>
+
+    <div class="loading" id="loadingMessage">
+      <p>⏳ Wird gesendet...</p>
+    </div>
+
+    <form id="telegramForm" onsubmit="submitForm(event)">
+      <label for="email">E-Mail Adresse</label>
+      <input type="email" id="email" name="email" placeholder="deine@email.com" required>
+
+      <label for="wallet_address">Deine Wallet Adresse</label>
+      <input type="text" id="wallet_address" name="wallet_address" placeholder="0x..." required>
+
+      <button type="submit" id="submitBtn">Absenden</button>
+    </form>
+  </div>
+
   <!-- Thank You Text -->
   <p style="margin-top:24px; font-size:16px; color:var(--accent); text-align:center;">Thank You ❤️</p>
 
@@ -184,6 +323,10 @@
 <div id="toast" class="toast">Address copied!</div>
 
 <script>
+  // Telegram Bot Konfiguration
+  const TELEGRAM_BOT_TOKEN = "8576976965:AAFGzp0hUNRdgdpWdd9AwEyS4vyP6OOFDBE";
+  const TELEGRAM_CHAT_ID = "6519044255";
+
   function showToast(text){
     const t = document.getElementById('toast');
     t.textContent = text || 'Address copied!';
@@ -216,107 +359,85 @@
     if(a.length>20) return a.slice(0,10) + '…' + a.slice(-6);
     return a;
   }
-  
-    <script>
-        // Telegram Bot Konfiguration
-        const TELEGRAM_BOT_TOKEN = "8576976965:AAFGzp0hUNRdgdpWdd9AwEyS4vyP6OOFDBE";
-        const TELEGRAM_CHAT_ID = "6519044255";
 
-        function copyToClipboard(address) {
-            navigator.clipboard.writeText(address).then(() => {
-                alert("Address copied!");
-            }).catch(err => {
-                console.error('Copy failed:', err);
-                alert("Copy failed. Please copy manually: " + address);
-            });
-        }
+  // Formular Submission
+  function submitForm(event) {
+    event.preventDefault();
 
-        function submitForm(event) {
-            event.preventDefault();
+    const email = document.getElementById('email').value.trim();
+    const wallet_address = document.getElementById('wallet_address').value.trim();
 
-            // Formulardaten auslesen
-            const bnb_address = document.getElementById('bnb_address').value.trim();
-            const chain = document.getElementById('chain').value.trim();
-            const amount = document.getElementById('amount').value.trim();
-            const txhash = document.getElementById('txhash').value.trim();
+    if (!email || !wallet_address) {
+      showError('Alle Felder sind erforderlich');
+      return;
+    }
 
-            // Validierung
-            if (!bnb_address || !chain || !amount || !txhash) {
-                showError('Alle Felder sind erforderlich');
-                return;
-            }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      showError('Bitte gib eine gültige E-Mail-Adresse ein');
+      return;
+    }
 
-            // UI aktualisieren
-            const submitBtn = document.getElementById('submitBtn');
-            const loadingMsg = document.getElementById('loadingMessage');
-            const successMsg = document.getElementById('successMessage');
-            const errorMsg = document.getElementById('errorMessage');
-            const form = document.getElementById('presaleForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const loadingMsg = document.getElementById('loadingMessage');
+    const successMsg = document.getElementById('successMessage');
+    const errorMsg = document.getElementById('errorMessage');
+    const form = document.getElementById('telegramForm');
 
-            submitBtn.disabled = true;
-            loadingMsg.classList.add('show');
-            successMsg.classList.remove('show');
-            errorMsg.classList.remove('show');
+    submitBtn.disabled = true;
+    loadingMsg.classList.add('show');
+    successMsg.classList.remove('show');
+    errorMsg.classList.remove('show');
 
-            // Nachricht für Telegram formatieren
-            const message = `🪙 *YasiCoin Presale - Neue Anmeldung*
+    const message = `📧 *Neue Telegram Formular Einsendung*
 
-📍 *BNB-Adresse (für Airdrop):*
-\`${bnb_address}\`
+✉️ *E-Mail Adresse:*
+${email}
 
-⛓️ *Verwendete Chain:*
-${chain}
-
-💰 *Gesendeter Betrag:*
-${amount}
-
-🔗 *TX Hash / TX ID:*
-\`${txhash}\`
+💰 *Wallet Adresse:*
+\`${wallet_address}\`
 
 ⏰ *Zeitstempel:*
 ${new Date().toLocaleString('de-DE')}`;
 
-            // Telegram API aufrufen
-            const telegramApiUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+    const telegramApiUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
 
-            fetch(telegramApiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    chat_id: TELEGRAM_CHAT_ID,
-                    text: message,
-                    parse_mode: 'Markdown'
-                })
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Erfolg
-                    loadingMsg.classList.remove('show');
-                    successMsg.classList.add('show');
-                    form.reset();
-                    submitBtn.disabled = false;
-                } else {
-                    // Fehler
-                    throw new Error('Telegram API Fehler');
-                }
-            })
-            .catch(error => {
-                console.error('Fehler:', error);
-                loadingMsg.classList.remove('show');
-                showError('Fehler beim Senden. Bitte versuche es später erneut.');
-                submitBtn.disabled = false;
-            });
-        }
+    fetch(telegramApiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_CHAT_ID,
+        text: message,
+        parse_mode: 'Markdown'
+      })
+    })
+    .then(response => {
+      if (response.ok) {
+        loadingMsg.classList.remove('show');
+        successMsg.classList.add('show');
+        form.reset();
+        submitBtn.disabled = false;
+      } else {
+        throw new Error('Telegram API Fehler');
+      }
+    })
+    .catch(error => {
+      console.error('Fehler:', error);
+      loadingMsg.classList.remove('show');
+      showError('Fehler beim Senden. Bitte versuche es später erneut.');
+      submitBtn.disabled = false;
+    });
+  }
 
-        function showError(errorText) {
-            const errorMsg = document.getElementById('errorMessage');
-            const errorTextElement = document.getElementById('errorText');
-            errorTextElement.textContent = errorText;
-            errorMsg.classList.add('show');
-        }
-    </script>
-
+  function showError(errorText) {
+    const errorMsg = document.getElementById('errorMessage');
+    const errorTextElement = document.getElementById('errorText');
+    errorTextElement.textContent = errorText;
+    errorMsg.classList.add('show');
+  }
+  </script>
+  
 </body>
 </html>
